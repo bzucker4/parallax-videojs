@@ -105,3 +105,11 @@ video-player > .px-skin{width:100%;height:100%}
   .px-time-slider media-slider-track,.px-volume-slider media-slider-track{outline:1px solid #fff}
   .px-skin :is(media-play-button,media-mute-button,media-fullscreen-button,media-time-slider,media-volume-slider):focus-visible{outline-width:4px}
 }
+
+/* Narrowest phones: let the volume rail yield space to fullscreen. */
+@container (max-width:339px){
+  .px-controls-row{column-gap:2px}
+  .px-volume-slider{flex:1 1 0;min-width:0;width:auto;margin-right:2px}
+  .px-skin media-play-button,.px-skin media-mute-button,.px-skin media-fullscreen-button{flex-shrink:0}
+  .px-skin media-time{font-size:9px}
+}
