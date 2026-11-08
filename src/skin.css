@@ -1,0 +1,37 @@
+/* PARALLAX PX—01: a composed Video.js v10 skin, not a themed packaged skin. */
+.px-skin{--px-accent:var(--media-accent-color,#ec754c);--px-ink:#f4f0e8;position:relative;display:block;isolation:isolate;background:#050605;color:var(--px-ink);font-family:ui-monospace,Consolas,monospace;overflow:hidden;border-radius:var(--media-border-radius,0)}
+.px-skin video{display:block;width:100%;height:100%;aspect-ratio:16/9;object-fit:contain}
+.px-skin media-controls{position:absolute;inset:0;pointer-events:none}
+.px-skin media-controls-content{position:absolute;bottom:0;left:0;right:0;display:block;padding:clamp(12px,2.2vw,30px);background:linear-gradient(transparent,rgba(4,5,5,.92) 55%);pointer-events:auto;transition:opacity .22s ease,transform .22s ease}
+.px-skin media-controls-content:not([data-visible]):not(:has(:focus-visible)){opacity:0;transform:translateY(8px);pointer-events:none}
+.px-topline{display:flex;justify-content:space-between;gap:12px;margin-bottom:15px;font-size:10px;letter-spacing:.16em;color:#f5f1e8;text-shadow:0 1px 4px #000}
+.px-topline b{color:var(--px-accent);font-weight:500}
+.px-time-slider{position:relative;display:flex;align-items:center;height:38px;cursor:pointer;touch-action:none;margin-bottom:8px}
+.px-time-slider::before{content:"";position:absolute;inset:5px 0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.38) 0 1px,transparent 1px 9px);mask-image:linear-gradient(to bottom,transparent 0 25%,black 25% 70%,transparent 70%);opacity:.65;pointer-events:none}
+.px-time-slider media-slider-track{position:relative;display:block;width:100%;height:4px;background:rgba(255,255,255,.38);box-shadow:0 0 0 2px rgba(0,0,0,.45)}
+.px-time-slider media-slider-buffer,.px-time-slider media-slider-fill{position:absolute;inset:0 auto 0 0;width:var(--media-slider-buffer);background:rgba(255,255,255,.32)}
+.px-time-slider media-slider-fill{width:var(--media-slider-fill);background:var(--px-accent)}
+.px-time-slider media-slider-thumb{position:absolute;left:var(--media-slider-fill);width:3px;height:29px;background:var(--px-accent);box-shadow:0 0 0 2px #080908;transform:translateX(-50%);top:4px}
+.px-time-slider:focus-visible,.px-skin [role=button]:focus-visible,.px-skin [role=slider]:focus-visible{outline:3px solid #ffcb9d;outline-offset:4px}
+.px-controls-row{display:flex;align-items:center;gap:clamp(7px,1.4vw,18px);min-height:46px}
+.px-skin media-play-button,.px-skin media-mute-button,.px-skin media-fullscreen-button{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;cursor:pointer;border:1px solid rgba(255,255,255,.27);background:rgba(9,11,10,.88);color:#fff;user-select:none}
+.px-skin media-play-button{background:var(--px-accent);color:#111;border-color:var(--px-accent);min-width:48px}
+.px-skin media-play-button:hover,.px-skin media-mute-button:hover,.px-skin media-fullscreen-button:hover{border-color:#fff}
+.px-skin .px-symbol{font-family:Arial,sans-serif;font-size:19px;line-height:1}
+.px-skin media-time{font-variant-numeric:tabular-nums;font-size:12px;letter-spacing:.02em;white-space:nowrap;text-shadow:0 1px 3px #000}
+.px-separator{color:#9c9d95;font-size:11px}
+.px-spacer{flex:1}
+.px-volume-slider{position:relative;display:flex;align-items:center;width:clamp(58px,11vw,110px);height:44px;cursor:pointer;touch-action:none}
+.px-volume-slider media-slider-track{position:relative;width:100%;height:4px;background:#777a75}
+.px-volume-slider media-slider-fill{position:absolute;inset:0 auto 0 0;width:var(--media-slider-fill);background:var(--px-accent)}
+.px-volume-slider media-slider-thumb{position:absolute;left:var(--media-slider-fill);width:11px;height:11px;border-radius:50%;background:#fff;transform:translateX(-50%)}
+.px-skin .show-when-playing,.px-skin .show-when-muted,.px-skin .show-when-fullscreen{display:none}
+.px-skin media-play-button:not([data-paused]) .show-when-paused,.px-skin media-mute-button[data-muted] .show-when-unmuted,.px-skin media-fullscreen-button[data-fullscreen] .show-when-not-fullscreen{display:none}
+.px-skin media-play-button:not([data-paused]) .show-when-playing,.px-skin media-mute-button[data-muted] .show-when-muted,.px-skin media-fullscreen-button[data-fullscreen] .show-when-fullscreen{display:inline}
+.px-error{position:absolute;inset:0;display:grid;place-content:center;gap:14px;padding:24px;background:#101211;color:#fff;text-align:center;z-index:10}
+.px-error:not([data-open]){display:none}
+.px-error media-dialog-close{cursor:pointer;padding:12px;border:1px solid #fff}
+@container (max-width:440px){.px-topline{font-size:8px;margin-bottom:6px}.px-controls-row{gap:6px}.px-skin media-time{font-size:10px}.px-volume-slider{width:52px}.px-time-slider{margin-bottom:0}}
+@media(max-width:480px){.px-volume-slider{width:52px}.px-topline{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.px-skin media-controls-content{transition:none!important;transform:none!important}}
+@media(forced-colors:active){.px-skin media-play-button,.px-skin media-mute-button,.px-skin media-fullscreen-button{border:1px solid ButtonText}.px-time-slider media-slider-fill,.px-volume-slider media-slider-fill{background:Highlight}.px-time-slider media-slider-thumb{background:Highlight}}
