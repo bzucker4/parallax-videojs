@@ -15,26 +15,7 @@
 <section class="stage" id="player" aria-label="Video playback demonstration">
 <div class="stage-head"><span>01 / LIVE PLAYER</span><span>INTERACTIVE INSTRUMENT — TRY THE CONTROLS</span></div>
 <div class="player-frame">
-<video-player>
-<media-container class="px-skin" style="--media-accent-color:#ec754c">
-
-<video playsinline preload="metadata" crossorigin="anonymous" poster="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1600&q=85" src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"></video>
-<media-controls><media-controls-content>
-<div class="px-topline"><span>PX—01 / PLAYBACK INSTRUMENT</span><b>● VIDEO.JS V10</b></div>
-<media-time-slider class="px-time-slider" aria-label="Seek through video"><media-slider-track><media-slider-buffer></media-slider-buffer><media-slider-fill></media-slider-fill></media-slider-track><media-slider-thumb></media-slider-thumb></media-time-slider>
-<media-controls-group class="px-controls-row" aria-label="Playback controls">
-<media-play-button aria-label="Toggle playback"><span class="px-symbol show-when-paused" aria-hidden="true">▶</span><span class="px-symbol show-when-playing" aria-hidden="true">Ⅱ</span></media-play-button>
-<media-time type="current"></media-time><span class="px-separator" aria-hidden="true">/</span><media-time type="duration"></media-time>
-<span class="px-spacer"></span>
-<media-mute-button aria-label="Toggle mute"><span class="px-symbol show-when-unmuted" aria-hidden="true">◖</span><span class="px-symbol show-when-muted" aria-hidden="true">×</span></media-mute-button>
-<media-volume-slider class="px-volume-slider" aria-label="Volume"><media-slider-track><media-slider-fill></media-slider-fill></media-slider-track><media-slider-thumb></media-slider-thumb></media-volume-slider>
-<media-fullscreen-button aria-label="Toggle fullscreen"><span class="px-symbol show-when-not-fullscreen" aria-hidden="true">⛶</span><span class="px-symbol show-when-fullscreen" aria-hidden="true">↙</span></media-fullscreen-button>
-</media-controls-group></media-controls-content></media-controls>
-<media-hotkey keys="Space" action="togglePaused"></media-hotkey><media-hotkey keys="m" action="toggleMuted"></media-hotkey><media-hotkey keys="f" action="toggleFullscreen"></media-hotkey><media-hotkey keys="ArrowLeft" action="seekStep" value="-5"></media-hotkey><media-hotkey keys="ArrowRight" action="seekStep" value="5"></media-hotkey>
-<media-status-announcer></media-status-announcer>
-<media-error-dialog><media-dialog-popup class="px-error"><media-dialog-title></media-dialog-title><media-dialog-description></media-dialog-description><media-dialog-close>Close</media-dialog-close></media-dialog-popup></media-error-dialog>
-</media-container>
-</video-player>
+<div id="parallax-demo"></div>
 </div>
 <div class="instrument" aria-hidden="true"><div><span class="small">INSTRUMENT</span><strong>PX—01</strong></div><div class="scale"></div><div class="right"><span class="small">ENGINE</span><strong>VIDEO.JS / 10</strong></div></div></section>
 <section class="notes"><div><span class="kicker">DESIGN PRINCIPLE / 001</span><h2>NOT A SKIN.<br>A SYSTEM.</h2></div><p>A time ruler instead of a generic progress line. High-contrast mechanical controls instead of floating glass. An interface designed to be touched, navigated, and understood.</p></section>
