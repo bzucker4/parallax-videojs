@@ -11,6 +11,23 @@ npm run dev
 
 Production build: `npm run build`. CI verifies compilation on GitHub Actions.
 
+## Reuse PARALLAX on another website
+
+Install the dependencies (`npm install`) and import the portable module:
+
+```js
+import { createParallaxPlayer } from './src/parallax-player.js';
+
+const player = createParallaxPlayer({
+  src: 'https://example.com/your-video.mp4',
+  poster: 'https://example.com/poster.jpg', // optional
+  label: 'Featured video', // optional
+});
+document.querySelector('#video-mount').append(player);
+```
+
+Use a container such as `<div id="video-mount"></div>`. The module registers the Video.js v10 elements and imports its own skin stylesheet. The host does **not** need `style.css`, the showcase page, or its markup. Import it in a Vite project (or another bundler supporting CSS imports). A video source must be supplied; the player does not hard-code the demo footage.
+
 ## Skin implementation
 
 - Video.js v10 custom elements via `@videojs/html`.
