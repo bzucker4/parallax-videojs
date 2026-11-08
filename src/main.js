@@ -1,23 +1,10 @@
-import '@videojs/html/video/player';
-import '@videojs/html/ui/container';
-import '@videojs/html/ui/controls';
-import '@videojs/html/ui/controls-content';
-import '@videojs/html/ui/controls-group';
-import '@videojs/html/ui/play-button';
-import '@videojs/html/ui/time-slider';
-import '@videojs/html/ui/volume-slider';
-import '@videojs/html/ui/slider-track';
-import '@videojs/html/ui/slider-buffer';
-import '@videojs/html/ui/slider-fill';
-import '@videojs/html/ui/slider-thumb';
-import '@videojs/html/ui/time';
-import '@videojs/html/ui/mute-button';
-import '@videojs/html/ui/fullscreen-button';
-import '@videojs/html/ui/hotkey';
-import '@videojs/html/ui/status-announcer';
-import '@videojs/html/ui/error-dialog';
-import '@videojs/html/ui/dialog-popup';
-import '@videojs/html/ui/dialog-title';
-import '@videojs/html/ui/dialog-description';
-import '@videojs/html/ui/dialog-close';
-import './skin.css';
+import { createParallaxPlayer } from './parallax-player.js';
+
+const mount = document.querySelector('#parallax-demo');
+if (mount) {
+  mount.replaceChildren(createParallaxPlayer({
+    src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    poster: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1600&q=85',
+    label: 'PARALLAX PX—01 demo video',
+  }));
+}
