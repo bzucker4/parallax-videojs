@@ -45,16 +45,21 @@ export function createParallaxPlayer({ src, poster, label = 'Video player', prel
   video.loop = Boolean(loop);
   if (crossOrigin) video.crossOrigin = crossOrigin;
   if (poster) video.poster = poster;
-  // Some browsers resolve an integer-second seek just below its target.
-  // Video.js floors the resulting time. Correct only near-integer undershoots.
-  let snapping = false;
+  // Browsers can land a seek a hair before the target (2 -> 1.999999), and Video.js floors
+  // whole seconds, so the time display and slider read one second short. Nudge such
+  // landings 1ms past the whole second. The nudge is recognised by where it lands, so a
+  // new seek that overtakes it is still corrected, and a nudge that lands short again
+  // cannot loop. Never nudge onto or past the end, which would end playback.
+  let nudgeTarget = null;
   video.addEventListener('seeked', () => {
-    if (snapping) { snapping = false; return; }
     const t = video.currentTime;
+    if (nudgeTarget !== null && Math.abs(t - nudgeTarget) < 0.01) { nudgeTarget = null; return; }
+    nudgeTarget = null;
     const whole = Math.round(t);
-    if (whole - t > 0 && whole - t < 0.01) {
-      snapping = true;
-      video.currentTime = Math.min(whole + 0.001, video.duration || whole + 0.001);
+    const target = whole + 0.001;
+    if (whole - t > 0 && whole - t < 0.01 && !(target >= video.duration)) {
+      nudgeTarget = target;
+      video.currentTime = target;
     }
   });
   return player;
