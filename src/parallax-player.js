@@ -45,5 +45,17 @@ export function createParallaxPlayer({ src, poster, label = 'Video player', prel
   video.loop = Boolean(loop);
   if (crossOrigin) video.crossOrigin = crossOrigin;
   if (poster) video.poster = poster;
+  // Some browsers resolve an integer-second seek just below its target.
+  // Video.js floors the resulting time. Correct only near-integer undershoots.
+  let snapping = false;
+  video.addEventListener('seeked', () => {
+    if (snapping) { snapping = false; return; }
+    const t = video.currentTime;
+    const whole = Math.round(t);
+    if (whole - t > 0 && whole - t < 0.01) {
+      snapping = true;
+      video.currentTime = Math.min(whole + 0.001, video.duration || whole + 0.001);
+    }
+  });
   return player;
 }
