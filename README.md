@@ -1,28 +1,37 @@
 # PARALLAX / PX—01
 
-An original editorial design study for a Video.js v10 skin, inspired by precision instruments and cinematic viewing rooms.
+A custom Video.js v10 player skin designed around the precision of a calibrated instrument. The actual Video.js controls are composed in `index.html` and styled in `src/skin.css`; the surrounding page is only a demonstration.
 
-**Current status: prototype, not submission-ready.** This initial version loads Video.js v10.2.0 and its upstream Scaffold skin with customized tokens. The surrounding visual system is original; the actual player controls are **not yet a bespoke skin**. Do not submit as a completed custom skin.
-
-## Local preview
-
-Serve the repository as a static site:
+## Run
 
 ```sh
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Visit http://localhost:8000. Video.js, sample video, and poster require an internet connection.
+Production build: `npm run build`. CI verifies compilation on GitHub Actions.
 
-## Required next phase
+## Skin implementation
 
-- Implement a locally owned v10 skin using documented Video.js components, not decorative overlays.
-- Build the functional calibrated seek rail and playback dock.
-- Verify play/pause, seek, time, volume/mute, fullscreen, keyboard focus and touch.
-- Test mobile sizes, bright/dark footage, reduced motion and high contrast.
-- Host a reliable public video and deploy a public URL; add Mux playback ID if eligible.
-- Add a design rationale and screenshots of the actual completed skin.
+- Video.js v10 custom elements via `@videojs/html`.
+- Play/pause, time slider, elapsed/duration time, mute, volume slider, fullscreen.
+- Permanently visible control dock, calibrated seek ticks, high-contrast background, visible keyboard focus, 44px touch controls, compact layouts and reduced-motion support.
+- Components are registered in `src/main.js`.
+
+## Submission acceptance checklist
+
+- [x] Source committed with a working CI production build
+- [ ] Verify browser playback and every control on the deployed **skin branch** (not the old main-page scaffold)
+- [ ] Test keyboard Tab/Shift+Tab, Space/Enter, slider arrow keys and fullscreen exit
+- [ ] Test 320px, 375px, 768px and desktop player widths
+- [ ] Test bright and dark footage, reduced motion and high contrast
+- [ ] Publish skin build at a public no-login URL
+- [ ] Capture a real screenshot and provide a short design rationale
+
+## Design rationale
+
+PARALLAX treats video playback as a precise interaction with time. A calibrated ruler replaces the generic progress line; instrument-like controls use restrained graphite, warm white, and a single signal-orange accent. Controls remain visible, legible and operable rather than hiding the basic functions behind decorative motion.
 
 ## License
 
-Original project files are licensed under Apache-2.0. Video.js and external media retain their respective licenses.
+Apache License, Version 2.0. Original project code is offered under Apache-2.0. Third-party dependencies and footage have their own licenses.
