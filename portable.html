@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PARALLAX — Standalone Integration Test</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:24px;background:#f1f2f4;color:#19202a;font:16px/1.5 system-ui,sans-serif}
+main{max-width:980px;margin:0 auto}
+h1{font-size:clamp(24px,4vw,42px);margin:0 0 8px}
+p{max-width:66ch}
+#independent-player{width:100%;margin:24px 0}
+code{background:#e0e3e7;padding:2px 5px}
+</style>
+<script type="module" src="/src/portable-demo.js"></script>
+</head>
+<body><main>
+<h1>Standalone integration test</h1>
+<p>This deliberately plain page does not load the PARALLAX showcase stylesheet or markup. The player below comes entirely from the reusable module and its own skin CSS.</p>
+<div id="independent-player"></div>
+<p>Test play/pause, timeline seeking, elapsed time, volume, mute, fullscreen, keyboard navigation, and narrow browser widths. <a href="/">Return to showcase</a>.</p>
+</main></body></html>
