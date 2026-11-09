@@ -3,8 +3,8 @@ import { createParallaxPlayer } from './parallax-player.js';
 const mount = document.querySelector('#parallax-demo');
 if (mount) {
   mount.replaceChildren(createParallaxPlayer({
-    src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-    poster: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1600&q=85',
+    src: 'https://stream.mux.com/rgJT9Z8tMQXqHm3PMI02A016AYJmnY1jMPxD11T2yyxCM.m3u8',
+    poster: 'https://image.mux.com/rgJT9Z8tMQXqHm3PMI02A016AYJmnY1jMPxD11T2yyxCM/thumbnail.jpg',
     label: 'PARALLAX PX—01 demo video',
   }));
 }
