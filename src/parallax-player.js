@@ -1,5 +1,6 @@
 /** PARALLAX PX—01: portable Video.js v10 player composition. */
 import '@videojs/html/video/player';
+import '@videojs/html/media/mux-video';
 import '@videojs/html/ui/container';
 import '@videojs/html/ui/controls';
 import '@videojs/html/ui/controls-content';
@@ -38,7 +39,14 @@ export function createParallaxPlayer({ src, poster, label = 'Video player', prel
   if (crossOrigin !== undefined && !['anonymous', 'use-credentials'].includes(crossOrigin)) throw new TypeError('Invalid crossOrigin value');
   const player = template.content.firstElementChild.cloneNode(true);
   player.setAttribute('aria-label', label);
-  const video = player.querySelector('video');
+  // Video.js v10 Mux media supports HLS in Chromium as well as native-HLS browsers.
+  const isMuxStream = /^https:\/\/stream\.mux\.com\/[A-Za-z0-9]+\.m3u8(?:\?.*)?$/.test(src);
+  if (isMuxStream) {
+    const muxMedia = document.createElement('mux-video');
+    muxMedia.setAttribute('playsinline', '');
+    player.querySelector('video').replaceWith(muxMedia);
+  }
+  const video = player.querySelector(isMuxStream ? 'mux-video' : 'video');
   video.src = src;
   video.preload = preload;
   video.muted = Boolean(muted);
