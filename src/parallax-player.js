@@ -25,7 +25,7 @@ import './skin.css';
 
 
 const template = document.createElement('template');
-template.innerHTML = "<video-player>\n<media-container class=\"px-skin\">\n\n<video playsinline preload=\"metadata\"></video>\n<media-controls><media-controls-content>\n<div class=\"px-topline\"><span>PX—01 / PLAYBACK INSTRUMENT</span><b>● VIDEO.JS V10</b></div>\n<media-time-slider class=\"px-time-slider\" aria-label=\"Seek through video\"><media-slider-track><media-slider-buffer></media-slider-buffer><media-slider-fill></media-slider-fill></media-slider-track><media-slider-thumb></media-slider-thumb></media-time-slider>\n<media-controls-group class=\"px-controls-row\" aria-label=\"Playback controls\">\n<media-play-button aria-label=\"Toggle playback\"><span class=\"px-symbol show-when-paused\" aria-hidden=\"true\">▶</span><span class=\"px-symbol show-when-playing\" aria-hidden=\"true\">Ⅱ</span></media-play-button>\n<media-time type=\"current\"></media-time><span class=\"px-separator\" aria-hidden=\"true\">/</span><media-time type=\"duration\"></media-time>\n<span class=\"px-spacer\"></span>\n<media-mute-button aria-label=\"Toggle mute\"><span class=\"px-symbol show-when-unmuted\" aria-hidden=\"true\">◖</span><span class=\"px-symbol show-when-muted\" aria-hidden=\"true\">×</span></media-mute-button>\n<media-volume-slider class=\"px-volume-slider\" aria-label=\"Volume\"><media-slider-track><media-slider-fill></media-slider-fill></media-slider-track><media-slider-thumb></media-slider-thumb></media-volume-slider>\n<media-fullscreen-button aria-label=\"Toggle fullscreen\"><span class=\"px-symbol show-when-not-fullscreen\" aria-hidden=\"true\">⛶</span><span class=\"px-symbol show-when-fullscreen\" aria-hidden=\"true\">↙</span></media-fullscreen-button>\n</media-controls-group></media-controls-content></media-controls>\n<media-hotkey keys=\"Space\" action=\"togglePaused\"></media-hotkey><media-hotkey keys=\"m\" action=\"toggleMuted\"></media-hotkey><media-hotkey keys=\"f\" action=\"toggleFullscreen\"></media-hotkey><media-hotkey keys=\"ArrowLeft\" action=\"seekStep\" value=\"-5\"></media-hotkey><media-hotkey keys=\"ArrowRight\" action=\"seekStep\" value=\"5\"></media-hotkey>\n<media-status-announcer></media-status-announcer>\n<media-error-dialog><media-dialog-popup class=\"px-error\"><media-dialog-title></media-dialog-title><media-dialog-description></media-dialog-description><media-dialog-close>Close</media-dialog-close></media-dialog-popup></media-error-dialog>\n</media-container>\n</video-player>";
+template.innerHTML = "<video-player>\n<media-container class=\"px-skin\">\n\n<video playsinline preload=\"metadata\"></video>\n<media-controls><media-controls-content>\n<div class=\"px-topline\"><span>PX—01 / PLAYBACK INSTRUMENT</span><b>● VIDEO.JS V10</b></div>\n<media-time-slider class=\"px-time-slider\" aria-label=\"Seek through video\"><media-slider-track><media-slider-buffer></media-slider-buffer><media-slider-fill></media-slider-fill></media-slider-track><media-slider-thumb></media-slider-thumb></media-time-slider>\n<media-controls-group class=\"px-controls-row\" aria-label=\"Playback controls\">\n<media-play-button aria-label=\"Toggle playback\"><span class=\"px-symbol show-when-paused\" aria-hidden=\"true\">▶</span><span class=\"px-symbol show-when-playing\" aria-hidden=\"true\">Ⅱ</span></media-play-button>\n<media-time class=\"px-elapsed-time\" type=\"current\"></media-time><media-time class=\"px-ended-time\" type=\"duration\" label=\"Current time\" hidden></media-time><span class=\"px-separator\" aria-hidden=\"true\">/</span><media-time type=\"duration\"></media-time>\n<span class=\"px-spacer\"></span>\n<media-mute-button aria-label=\"Toggle mute\"><span class=\"px-symbol show-when-unmuted\" aria-hidden=\"true\">◖</span><span class=\"px-symbol show-when-muted\" aria-hidden=\"true\">×</span></media-mute-button>\n<media-volume-slider class=\"px-volume-slider\" aria-label=\"Volume\"><media-slider-track><media-slider-fill></media-slider-fill></media-slider-track><media-slider-thumb></media-slider-thumb></media-volume-slider>\n<media-fullscreen-button aria-label=\"Toggle fullscreen\"><span class=\"px-symbol show-when-not-fullscreen\" aria-hidden=\"true\">⛶</span><span class=\"px-symbol show-when-fullscreen\" aria-hidden=\"true\">↙</span></media-fullscreen-button>\n</media-controls-group></media-controls-content></media-controls>\n<media-hotkey keys=\"Space\" action=\"togglePaused\"></media-hotkey><media-hotkey keys=\"m\" action=\"toggleMuted\"></media-hotkey><media-hotkey keys=\"f\" action=\"toggleFullscreen\"></media-hotkey><media-hotkey keys=\"ArrowLeft\" action=\"seekStep\" value=\"-5\"></media-hotkey><media-hotkey keys=\"ArrowRight\" action=\"seekStep\" value=\"5\"></media-hotkey>\n<media-status-announcer></media-status-announcer>\n<media-error-dialog><media-dialog-popup class=\"px-error\"><media-dialog-title></media-dialog-title><media-dialog-description></media-dialog-description><media-dialog-close>Close</media-dialog-close></media-dialog-popup></media-error-dialog>\n</media-container>\n</video-player>";
 
 /**
  * Create a reusable PARALLAX player. The host website needs no showcase CSS.
@@ -45,6 +45,23 @@ export function createParallaxPlayer({ src, poster, label = 'Video player', prel
   video.loop = Boolean(loop);
   if (crossOrigin) video.crossOrigin = crossOrigin;
   if (poster) video.poster = poster;
+  // On genuine completion, reuse Video.js's duration display (including its
+  // accessible datetime) as elapsed time. No media-time or seek mutation.
+  const elapsedTime = player.querySelector('.px-elapsed-time');
+  const endedTime = player.querySelector('.px-ended-time');
+  const syncEndedTime = () => {
+    const ended = video.ended && Number.isFinite(video.duration) && video.duration > 0;
+    elapsedTime.hidden = ended;
+    endedTime.hidden = !ended;
+  };
+  video.addEventListener('ended', syncEndedTime);
+  video.addEventListener('timeupdate', syncEndedTime);
+  video.addEventListener('seeking', () => {
+    elapsedTime.hidden = false;
+    endedTime.hidden = true;
+  });
+  video.addEventListener('play', syncEndedTime);
+  video.addEventListener('durationchange', syncEndedTime);
   // Browsers can land a seek a hair before the target (2 -> 1.999999), and Video.js floors
   // whole seconds, so the time display and slider read one second short. Nudge such
   // landings 1ms past the whole second. The nudge is recognised by where it lands, so a
