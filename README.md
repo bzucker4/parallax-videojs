@@ -44,12 +44,26 @@ The player supports optional `preload`, `muted`, `loop` and `crossOrigin` option
 ## Submission acceptance checklist
 
 - [x] Source committed with a working CI production build
-- [ ] Verify browser playback and every control on the deployed **skin branch** (not the old main-page scaffold)
+- [x] Verify natural completion, backward seeking, rapid seeking and elapsed-time accessibility on the integrated preview\n- [x] Verify production opens without authentication and loads video without media errors\n- [ ] Verify every other control and browser combination not covered above
 - [ ] Test keyboard Tab/Shift+Tab, Space/Enter, slider arrow keys and fullscreen exit
-- [ ] Test 320px, 375px, 768px and desktop player widths
+- [x] Test 320px and 330px player widths in Chromium mobile emulation\n- [ ] Test 375px, 768px and additional desktop player widths
 - [ ] Test bright and dark footage, reduced motion and high contrast
-- [ ] Publish skin build at a public no-login URL
+- [x] Publish skin build at a public no-login URL
 - [ ] Capture a real screenshot and provide a short design rationale
+
+## Release verification (November 2026)
+
+The integrated preview passed natural playback completion, backward seeking, rapid pointer/keyboard seeking, and visible/accessible elapsed-time consistency. Chromium mobile emulation passed at 320px and 330px with 44×44px control targets and no observed overflow or overlap. Production was deployed from merge commit `75a32bca7a0ecf6a5b54a92c69b6fa8252c0708a`; an unauthenticated Chromium session returned HTTP 200 and loaded the video (5.055s duration) without media errors.
+
+Production: https://parallax-videojs-spiritual-mvp.vercel.app/
+
+These results cover the checks described above; they do not imply that every browser, viewport, media format, or accessibility mode was tested.
+
+## Distribution and commercial readiness
+
+This repository is currently a **Vite demonstration and reusable source module**, not a published npm package or downloadable marketplace ZIP. `package.json` is marked `private: true`; do not advertise an npm install command for PARALLAX until a package is created and published. Consumers can reuse `src/parallax-player.js` and `src/skin.css` in a compatible bundler with `@videojs/html@10.2.0`.
+
+Before listing for sale: decide what buyers receive (source ZIP, hosted integration service, or packaged component); document third-party media and dependency rights; produce actual screenshots; confirm the target marketplace's requirements; and define support, update, and refund terms. The Apache-2.0 license allows redistribution of the original code, so commercial value should come from convenient packaging, documentation, customization, support, or related services rather than claims of exclusive rights.
 
 ## Design rationale
 
