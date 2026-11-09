@@ -3,7 +3,7 @@ video-player:has(> .px-skin){display:block;width:100%;max-width:100%;aspect-rati
 video-player > .px-skin{width:100%;height:100%}
 /* PARALLAX PX—01: a composed Video.js v10 skin, not a themed packaged skin. */
 .px-skin{container-type:inline-size;--px-accent:var(--media-accent-color,#d9ff45);--px-ink:#f4f0e8;position:relative;display:block;isolation:isolate;background:#050605;color:var(--px-ink);font-family:ui-monospace,Consolas,monospace;overflow:hidden;border-radius:var(--media-border-radius,0)}
-.px-skin video{display:block;width:100%;height:100%;aspect-ratio:16/9;object-fit:contain}
+.px-skin video,.px-skin mux-video{display:block;width:100%;height:100%;aspect-ratio:16/9;object-fit:contain}
 .px-skin media-controls{position:absolute;inset:0;pointer-events:none}
 .px-skin media-controls-content{position:absolute;bottom:0;left:0;right:0;display:block;padding:clamp(12px,2.2vw,30px);background:linear-gradient(transparent,rgba(4,5,5,.92) 55%);pointer-events:auto;transition:opacity .22s ease,transform .22s ease}
 /* Keep essential controls discoverable at all times, including touch and keyboard. */
