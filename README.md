@@ -1,28 +1,60 @@
 # PARALLAX / PX—01
 
-An original editorial design study for a Video.js v10 skin, inspired by precision instruments and cinematic viewing rooms.
+A custom Video.js v10 player skin designed around the precision of a calibrated instrument. The actual Video.js v10 controls are composed in `src/parallax-player.js` and styled in `src/skin.css`. The surrounding page is only a demonstration; the approved PX—01 visual design is preserved.
 
-**Current status: prototype, not submission-ready.** This initial version loads Video.js v10.2.0 and its upstream Scaffold skin with customized tokens. The surrounding visual system is original; the actual player controls are **not yet a bespoke skin**. Do not submit as a completed custom skin.
-
-## Local preview
-
-Serve the repository as a static site:
+## Run
 
 ```sh
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Visit http://localhost:8000. Video.js, sample video, and poster require an internet connection.
+Production build: `npm run build`. CI verifies compilation on GitHub Actions.
 
-## Required next phase
+## Reuse PARALLAX on another website
 
-- Implement a locally owned v10 skin using documented Video.js components, not decorative overlays.
-- Build the functional calibrated seek rail and playback dock.
-- Verify play/pause, seek, time, volume/mute, fullscreen, keyboard focus and touch.
-- Test mobile sizes, bright/dark footage, reduced motion and high contrast.
-- Host a reliable public video and deploy a public URL; add Mux playback ID if eligible.
-- Add a design rationale and screenshots of the actual completed skin.
+Install the dependencies (`npm install`) and import the portable module:
+
+```js
+import { createParallaxPlayer } from './src/parallax-player.js';
+
+const player = createParallaxPlayer({
+  src: 'https://example.com/your-video.mp4',
+  poster: 'https://example.com/poster.jpg', // optional
+  label: 'Featured video', // optional
+});
+document.querySelector('#video-mount').append(player);
+```
+
+Use a container such as `<div id="video-mount"></div>`. The module registers the Video.js v10 elements and imports its own skin stylesheet. The host does **not** need `style.css`, the showcase page, or its markup. Import it in a Vite project (or another bundler supporting CSS imports). A video source must be supplied; the player does not hard-code the demo footage.
+
+## Standalone portability check
+
+Open `/portable.html` on the feature-branch deployment. This page intentionally does not load `style.css` or the contest layout; it imports only `createParallaxPlayer`. Test play/pause, seeking, mute, volume, fullscreen, keyboard focus and touch behavior there. A successful build does not substitute for browser interaction testing.
+
+The player supports optional `preload`, `muted`, `loop` and `crossOrigin` options. Cross-origin credentials are **not** forced on arbitrary host videos. The original showcase visual CSS is unchanged.
+
+## Skin implementation
+
+- Video.js v10 custom elements via `@videojs/html`.
+- Play/pause, time slider, elapsed/duration time, mute, volume slider, fullscreen.
+- Permanently visible control dock, calibrated seek ticks, high-contrast background, visible keyboard focus, 44px touch controls, compact layouts and reduced-motion support.
+- Components are registered in `src/parallax-player.js`.
+
+## Submission acceptance checklist
+
+- [x] Source committed with a working CI production build
+- [ ] Verify browser playback and every control on the deployed **skin branch** (not the old main-page scaffold)
+- [ ] Test keyboard Tab/Shift+Tab, Space/Enter, slider arrow keys and fullscreen exit
+- [ ] Test 320px, 375px, 768px and desktop player widths
+- [ ] Test bright and dark footage, reduced motion and high contrast
+- [ ] Publish skin build at a public no-login URL
+- [ ] Capture a real screenshot and provide a short design rationale
+
+## Design rationale
+
+PARALLAX treats video playback as a precise interaction with time. A calibrated ruler replaces the generic progress line; instrument-like controls use restrained graphite, warm white, and a single signal-lime accent. Controls remain visible, legible and operable rather than hiding the basic functions behind decorative motion.
 
 ## License
 
-Original project files are licensed under Apache-2.0. Video.js and external media retain their respective licenses.
+Apache License, Version 2.0. Original project code is offered under Apache-2.0. Third-party dependencies and footage have their own licenses.
